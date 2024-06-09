@@ -10,7 +10,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.toast.SystemToast;
 import net.minecraft.client.toast.ToastManager;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 @Config(name = "perspectivemod")
 public class PerspectiveConfig extends PartitioningSerializer.GlobalData {
@@ -37,13 +37,13 @@ public class PerspectiveConfig extends PartitioningSerializer.GlobalData {
         } catch (Exception e) {
             e.printStackTrace();
             ToastManager toastManager = MinecraftClient.getInstance().getToastManager();
-            toastManager.add(new SystemToast(SystemToast.Type.PACK_LOAD_FAILURE, new LiteralText("Error loading screen"), new LiteralText("Check console for details.")));
+            toastManager.add(new SystemToast(SystemToast.Type.PACK_LOAD_FAILURE, Text.literal("Error loading screen"), Text.literal("Check console for details.")));
         }
 
-        return new Screen(new LiteralText("")) {
+        return new Screen(Text.literal("")) {
             @Override
             protected void init() {
-                this.client.openScreen(parent);
+                this.client.setScreen(parent);
             }
         };
     }

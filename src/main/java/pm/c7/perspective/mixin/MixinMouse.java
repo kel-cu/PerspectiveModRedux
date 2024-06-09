@@ -20,14 +20,14 @@ public class MixinMouse {
         method = "updateMouse",
         at = @At(
             value = "INVOKE",
-            target = "net/minecraft/client/tutorial/TutorialManager.onUpdateMouse(DD)V"
+            target = "Lnet/minecraft/client/tutorial/TutorialManager;onUpdateMouse(DD)V"
         ),
         locals = LocalCapture.CAPTURE_FAILEXCEPTION
     )
-    private void perspectiveUpdatePitchYaw(CallbackInfo info, double adjustedSens, double x, double y, int invert) {
+    private void perspectiveUpdatePitchYaw(double timeDelta, CallbackInfo ci, double i, double j) {
         if (PerspectiveMod.INSTANCE.perspectiveEnabled) {
-            PerspectiveMod.INSTANCE.cameraYaw += x / 8.0F;
-            PerspectiveMod.INSTANCE.cameraPitch += (y * invert) / 8.0F;
+            PerspectiveMod.INSTANCE.cameraYaw += i / 8.0F;
+            PerspectiveMod.INSTANCE.cameraPitch += (j * (MinecraftClient.getInstance().options.getInvertYMouse().getValue() ? -1 : 1)) / 8.0F;
 
             if (Math.abs(PerspectiveMod.INSTANCE.cameraPitch) > 90.0F) {
                 PerspectiveMod.INSTANCE.cameraPitch = PerspectiveMod.INSTANCE.cameraPitch > 0.0F ? 90.0F : -90.0F;
