@@ -2,7 +2,6 @@ package pm.c7.perspective.mixin;
 
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,7 +19,7 @@ public class MixinCamera {
     @Shadow
     private float yaw;
 
-    @Inject(method = "update", at = @At(value = "INVOKE", target = "net/minecraft/client/render/Camera.moveBy(DDD)V", ordinal = 0))
+    @Inject(method = "update", at = @At(value = "INVOKE", target = "net/minecraft/client/render/Camera.moveBy(FFF)V", ordinal = 0))
     private void perspectiveUpdatePitchYaw(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo info) {
         if (PerspectiveMod.INSTANCE.perspectiveEnabled) {
             this.pitch = PerspectiveMod.INSTANCE.cameraPitch;
